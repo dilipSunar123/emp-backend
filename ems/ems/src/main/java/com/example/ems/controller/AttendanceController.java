@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -40,10 +43,57 @@ public class AttendanceController {
         entity.setEmployeeEntity(employeeEntity);
         entity.setLoginDateAndTime(localDateTime);
 
+        // Create a LocalTime representing 9:30 AM
+//        LocalTime comparisonTime = LocalTime.of(9, 30);
+//
+//        Map<Boolean, Boolean> lateOrOnTimeMap = new HashMap<>();
+//
+//        if (localDateTime.toLocalTime().isAfter(comparisonTime)) {
+//            lateOrOnTimeMap = addLateOrOnTime(emp_id, true);
+//        } else {
+//            lateOrOnTimeMap = addLateOrOnTime(emp_id, false);
+//        }
+//
+//        // employee on time
+//        if (lateOrOnTimeMap.containsKey(true)) {
+//            entity.setOnTime(true);
+//            entity.setLateArrival(false);
+//        } else {
+//            entity.setOnTime(false);
+//            entity.setLateArrival(true);
+//        }
+
         attendanceRepo.save(entity);
+
+//        lateOrOnTimeMap.clear();
 
         return ResponseEntity.ok("Attendance recorded");
     }
+
+//    private Map<Boolean, Boolean> addLateOrOnTime(int empId, boolean isLate) {
+//        List<AttendanceEntity> entity = attendanceRepo.findByEmployeeEntityEmpIdOrderByLoginDateAndTimeDesc(empId);
+//
+//        // key -> onTime && value -> lateArrival
+//        Map<Boolean, Boolean> lateOrOnTimeMap = new HashMap<>();
+//
+//        for (AttendanceEntity attendanceEntity: entity) {
+//            if (attendanceEntity.getEmployeeEntity().getEmp_id() == empId) {
+//                if (isLate) {
+////                    attendanceEntity.setLateArrival(true);
+////                    attendanceEntity.setOnTime(false);
+//
+//                    lateOrOnTimeMap.put(false, true);
+//                } else {
+////                    attendanceEntity.setLateArrival(false);
+////                    attendanceEntity.setOnTime(true);
+//
+//                    lateOrOnTimeMap.put(true, false);
+//                }
+//                break;
+//            }
+//        }
+//        return lateOrOnTimeMap;
+//    }
 
 
     @GetMapping("/getAttendanceOfEmp/{empId}")
@@ -53,9 +103,6 @@ public class AttendanceController {
 
     @PutMapping("/addLogoutDateAndTime/{emp_id}")
     private ResponseEntity addLogoutDateAndTime(@PathVariable int emp_id) {
-
-        LocalDateTime dateTime = LocalDateTime.now();
-
         List<AttendanceEntity> attendanceEntity = attendanceRepo.findByEmployeeEntityEmpIdOrderByLoginDateAndTimeDesc(emp_id);
 
         for (AttendanceEntity entity: attendanceEntity) {

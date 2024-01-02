@@ -19,6 +19,12 @@ public class AttendanceEntity {
     @Column(name = "logout_date_and_time")
     private LocalDateTime logout_date_and_time;
 
+//    @Column(name = "onTime")
+//    private boolean onTime;
+
+//    @Column(name = "late_arrival")
+//    private boolean lateArrival;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "emp_id", nullable = false)
     private EmployeeEntity employeeEntity;
@@ -38,6 +44,22 @@ public class AttendanceEntity {
     public EmployeeEntity getEmployeeEntity() {
         return employeeEntity;
     }
+
+//    public boolean isOnTime() {
+//        return onTime;
+//    }
+
+//    public void setOnTime(boolean onTime) {
+//        this.onTime = onTime;
+//    }
+
+//    public boolean isLateArrival() {
+//        return lateArrival;
+//    }
+
+//    public void setLateArrival(boolean lateArrival) {
+//        this.lateArrival = lateArrival;
+//    }
 
     public void setSlno(int slno) {
         this.slno = slno;

@@ -38,6 +38,8 @@ public class EmailController {
 
         javaMailSender.send(message);
 
+        otpTimer();
+
         return "Email sent successfully!";
     }
 
@@ -49,16 +51,6 @@ public class EmailController {
 
     @GetMapping("/verifyOtp/{otp}")
     public String verifyOtp(@PathVariable int otp) {
-
-//        Timer timer = new Timer();
-//
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                if ()
-//            }
-//        };
-
         if (this.otp == otp) {
             this.otp = -1;
 
@@ -73,6 +65,18 @@ public class EmailController {
             return "Mail with set/rest password link sent!";
         }
         return "Invalid OTP";
+    }
+
+    private void otpTimer () {
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("OTP expired");
+                otp = -1;
+            }
+        }, 600000); // 10 mins
     }
 
 }

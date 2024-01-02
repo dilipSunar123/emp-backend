@@ -10,4 +10,6 @@ public interface AttendanceRepo extends JpaRepository<AttendanceEntity, Integer>
     public List<AttendanceEntity> findByEmployeeEntityEmpId(int empId);
     List<AttendanceEntity> findByEmployeeEntityEmpIdOrderByLoginDateAndTimeDesc(int empId);
 
+//    AttendanceEntity findByEmployeeEntityEmpId(int empId);
+
 }

@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface EmployeeRepo extends JpaRepository<EmployeeEntity, Integer> {
 
-//    public List<JobRoleEntity> findByJobRoleEntityJobId(int job_id);
+    public List<EmployeeEntity> findByReportingManagerId(int managerId);
 
+    public List<EmployeeEntity> findByDepartmentEntityDeptId(int deptId);
+
+    public List<EmployeeEntity> findByEmployeeTypeEmployeeTypeId(int empTypeId);
 
 }
